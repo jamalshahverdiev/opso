@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opso-application
+  namespace: argocd
+spec:
+  project: opso-project
+  source:
+    repoURL: 'https://github.com/jamalshahverdiev/opso.git'
+    targetRevision: main
+    path: helm-charts/opso
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: opso
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - "ServerSideApply=true"
+    - "CreateNamespace=true"

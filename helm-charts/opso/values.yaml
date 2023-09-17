@@ -1,0 +1,18 @@
+replicaCount: 1
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+secret:
+  username: defaultUser
+  password: defaultPassword
+config:
+  exampleKey: exampleValue
+nginx-ingress:
+  controller:
+    replicaCount: 1
+  defaultBackend:
+    enabled: true
